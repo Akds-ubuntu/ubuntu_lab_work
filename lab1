@@ -1,0 +1,21 @@
+#!/bin/bash
+ss="$(sudo df /dev/sdb1 | grep -o "[1-9][0-9]*%" | cut -c -1)"
+echo "Percentage of used memory=$ss"
+limitation=2
+
+
+Percentage_of_occupancy_LOG=$(sudo df /dev/sdb1 | grep -o "[1-9][0-9]*%" | cut -c -1)
+
+
+if [[ "$Percentage_of_occupancy_LOG" -gt "$limitation" ]]
+then
+
+sudo tar -czvf BACKUP/log.tar.gz -P LOG
+sudo rm -rf LOG/*
+
+echo "Archiving and deletion finished"
+else
+
+echo "Occupied space in the file does not exceed the specified limit"
+
+fi
