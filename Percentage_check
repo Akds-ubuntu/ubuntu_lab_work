@@ -1,0 +1,27 @@
+#!/bin/bash
+ss="$(sudo df /dev/sdb1 | grep -o "[1-9][0-9]*%" | cut -c -1)"
+limitation=2
+
+
+Percentage_of_occupancy_LOG=$(sudo df /dev/sdb1 | grep -o "[1-9][0-9]*%" | cut -c -1)
+
+
+if [[ "$Percentage_of_occupancy_LOG" -eq "$limitation" ]]
+then
+
+echo "заполненость рздела равна лимиту"
+fi
+
+if [[ "$Percentage_of_occupancy_LOG" -lt "$limitation" ]]
+then
+
+echo "заполненость рздела меньше лимита"
+fi
+
+if [[ "$Percentage_of_occupancy_LOG" -gt "$limitation" ]]
+then
+
+echo "заполненость рздела равна лимиту"
+fi
+
+
